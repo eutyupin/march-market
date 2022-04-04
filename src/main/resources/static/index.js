@@ -22,6 +22,20 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
                 $scope.fillTable();
             });
     }
+    $scope.fillCart = function () {
+        $http.get('http://localhost:8189/market/api/v1/cart')
+            .then(function (response) {
+                $scope.cartItems = response.data;
+            });
+    };
+
+    $scope.addProductToCart = function (id) {
+        $http.post('http://localhost:8189/market/api/v1/cart/' + id)
+            .then(function (response) {
+                $scope.fillCart();
+            });
+    }
 
     $scope.fillTable();
+    $scope.fillCart();
 });
