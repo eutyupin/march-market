@@ -64,12 +64,16 @@
         <tr>
             <td>Название</td>
             <td>Цена</td>
+            <td></td>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="p in cartItems">
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
+            <td>
+                <button class="btn btn-danger" ng-click="deleteFromCart(p.id)">Удалить</button>
+            </td>
         </tr>
         </tbody>
     </table>

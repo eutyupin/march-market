@@ -36,6 +36,13 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
             });
     }
 
+    $scope.deleteFromCart = function (id) {
+        $http.delete('http://localhost:8189/market/api/v1/cart/' + id)
+            .then(function (response) {
+                $scope.fillCart();
+            });
+    }
+
     $scope.fillTable();
     $scope.fillCart();
 });

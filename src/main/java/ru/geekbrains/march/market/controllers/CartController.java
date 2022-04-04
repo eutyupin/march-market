@@ -25,4 +25,10 @@ public class CartController {
     public void addToCart(@PathVariable Long id) {
         cartService.addToCart(id);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteFromCart(@PathVariable Long id) {
+        cartService.deleteFromCart(id);
+    }
+
 }

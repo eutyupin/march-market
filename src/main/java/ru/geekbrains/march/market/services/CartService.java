@@ -23,11 +23,14 @@ public class CartService {
        cart.getProductList().add(productService.findById(id).get());
     }
 
-    private Product newProduct(CreateNewProductDto newProductDto) {
-        Product product = new Product();
-        product.setTitle(newProductDto.getTitle());
-        product.setPrice(newProductDto.getPrice());
-        return product;
+    public void deleteFromCart(Long id) {
+        List<Product> temp = cart.getProductList();
+        for (Product product : temp) {
+            if(product.getId().equals(id)) {
+                temp.remove(product);
+            }
+        }
+        cart.setProductList(temp);
     }
 
 }
