@@ -40,4 +40,8 @@ public class CartService {
     public void decrementFromCart(Long productId) {
         cart.decrement(productId);
     }
+
+    public void cartClear() {
+        cart.clear();
+    }
 }

@@ -35,6 +35,7 @@ public class Cart {
 
     public void delete(Long productId) {
         items.removeIf(item -> item.getProductId().equals(productId));
+        recalculate();
     }
 
     public void decrement(Long productId) {
@@ -47,5 +48,6 @@ public class Cart {
                 item.decrementQuantity();
             }
         }
+        recalculate();
     }
 }

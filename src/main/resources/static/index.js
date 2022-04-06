@@ -37,7 +37,7 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
     }
 
     $scope.deleteFromCart = function (id) {
-        $http.delete('http://localhost:8189/market/api/v1/cart/' + id)
+        $http.delete('http://localhost:8189/market/api/v1/cart/delete/' + id)
             .then(function (response) {
                 $scope.fillCart();
             });
@@ -45,6 +45,13 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
 
     $scope.decrementFromCart = function (id) {
         $http.delete('http://localhost:8189/market/api/v1/cart/decrement/' + id)
+            .then(function (response) {
+                $scope.fillCart();
+            });
+    }
+
+    $scope.cartClear = function () {
+        $http.post('http://localhost:8189/market/api/v1/cart/clear')
             .then(function (response) {
                 $scope.fillCart();
             });

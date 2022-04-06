@@ -22,7 +22,7 @@ public class CartController {
         cartService.addToCart(productId);
     }
 
-    @DeleteMapping("/{productId}")
+    @DeleteMapping("/delete/{productId}")
     public void deleteFromCart(@PathVariable Long productId) {
         cartService.deleteFromCart(productId);
     }
@@ -30,5 +30,10 @@ public class CartController {
     @DeleteMapping("/decrement/{productId}")
     public void decrementFromCart(@PathVariable Long productId) {
         cartService.decrementFromCart(productId);
+    }
+
+    @PostMapping("/clear")
+    public void clearCart() {
+        cartService.cartClear();
     }
 }

@@ -22,7 +22,10 @@ public class CartItem {
     }
 
     public void decrementQuantity() {
-        if (quantity > 1) quantity--;
-        price = pricePerProduct.multiply(BigDecimal.valueOf(quantity));
+        if (quantity > 1){
+            quantity--;
+            price = price.subtract(pricePerProduct);
+        }
+
     }
 }

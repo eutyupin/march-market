@@ -63,7 +63,8 @@
         </div>
     </form>
 
-    <h3>Корзина</h3>
+        <h3>Корзина</h3>
+
     <table class="table table-hover">
         <thead>
         <tr>
@@ -93,8 +94,14 @@
                 <button type="button" class="btn btn-outline-danger" ng-click="deleteFromCart(i.productId)">X</button>
             </td>
         </tr>
+
         </tbody>
     </table>
+    <div>
+        <h6 style="display: inline-block">Всего товаров на сумму: {{cartItems.totalPrice}}</h6>
+        <button class="btn btn-primary btn-sm" style="margin-left: 50px" ng-click="cartClear()">Очистить корзину</button>
+    </div>
+
 </div>
 </body>
 </html>
