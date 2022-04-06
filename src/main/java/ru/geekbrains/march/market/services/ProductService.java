@@ -7,6 +7,7 @@ import ru.geekbrains.march.market.entities.Product;
 import ru.geekbrains.march.market.repositories.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,10 @@ public class ProductService {
 
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public Optional<Product> findById(Long id) {
+        return productRepository.findById(id);
     }
 
     public void createNewProduct(CreateNewProductDto createNewProductDto) {
