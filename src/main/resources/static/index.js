@@ -30,14 +30,28 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
     };
 
     $scope.addProductToCart = function (id) {
-        $http.post('http://localhost:8189/market/api/v1/cart/' + id)
+        $http.get('http://localhost:8189/market/api/v1/cart/add/' + id)
             .then(function (response) {
                 $scope.fillCart();
             });
     }
 
     $scope.deleteFromCart = function (id) {
-        $http.delete('http://localhost:8189/market/api/v1/cart/' + id)
+        $http.delete('http://localhost:8189/market/api/v1/cart/delete/' + id)
+            .then(function (response) {
+                $scope.fillCart();
+            });
+    }
+
+    $scope.decrementFromCart = function (id) {
+        $http.delete('http://localhost:8189/market/api/v1/cart/decrement/' + id)
+            .then(function (response) {
+                $scope.fillCart();
+            });
+    }
+
+    $scope.cartClear = function () {
+        $http.post('http://localhost:8189/market/api/v1/cart/clear')
             .then(function (response) {
                 $scope.fillCart();
             });

@@ -2,35 +2,46 @@ package ru.geekbrains.march.market.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.march.market.dtos.CreateNewProductDto;
-import ru.geekbrains.march.market.entities.Cart;
+import ru.geekbrains.march.market.converters.CartConverter;
+import ru.geekbrains.march.market.dtos.CartDto;
+import ru.geekbrains.march.market.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.entities.Product;
+import ru.geekbrains.march.market.utils.Cart;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
+import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
-    private final Cart cart;
     private final ProductService productService;
+    private final CartConverter cartConverter;
+    private Cart cart;
 
-    public List<Product> getAllCartItems() {
-        return cart.getProductList();
+    @PostConstruct
+    public void init() {
+        cart = new Cart();
+        cart.setItems(new ArrayList<>());
     }
 
-    public void addToCart(Long id) {
-       cart.getProductList().add(productService.findById(id).get());
+    public CartDto getCurrentCart() {
+        return cartConverter.cartConvertToDto(cart);
     }
 
-    public void deleteFromCart(Long id) {
-        List<Product> temp = cart.getProductList();
-        for (Product product : temp) {
-            if(product.getId().equals(id)) {
-                temp.remove(product);
-            }
-        }
-        cart.setProductList(temp);
+    public void addToCart(Long productId) {
+        Product p = productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Продукт с id: " + productId + " не найден"));
+        cart.add(p);
     }
 
+    public void deleteFromCart(Long productId) {
+        cart.delete(productId);
+    }
+
+    public void decrementFromCart(Long productId) {
+        cart.decrement(productId);
+    }
+
+    public void cartClear() {
+        cart.clear();
+    }
 }

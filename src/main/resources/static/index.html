@@ -26,6 +26,7 @@
             <td>ID</td>
             <td>Название</td>
             <td>Цена</td>
+            <td>Категория</td>
             <td></td>
         </tr>
         </thead>
@@ -34,8 +35,9 @@
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
+            <td>{{p.categoryTitle}}</td>
             <td>
-                <button class="btn btn-danger" ng-click="deleteProduct(p.id)">Удалить</button>
+                <button type="button" class="btn btn-outline-danger" ng-click="deleteProduct(p.id)">X</button>
             </td>
             <td>
                 <button class="btn btn-primary" ng-click="addProductToCart(p.id)">Добавить в корзину</button>
@@ -54,29 +56,52 @@
             <input type="number" class="form-control" id="newProductPrice" ng-model="newProduct.price" placeholder="Цена">
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-primary mb-3">Создать</button>
+            <input type="text" class="form-control" id="newProductCategoryTitle" ng-model="newProduct.categoryTitle" placeholder="Название категории">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3" ng-click="createNewProduct">Создать</button>
         </div>
     </form>
 
-    <h3>Корзина</h3>
+        <h3>Корзина</h3>
+
     <table class="table table-hover">
         <thead>
         <tr>
             <td>Название</td>
-            <td>Цена</td>
-            <td></td>
+            <td>Количество</td>
+            <td>Цена за ед.</td>
+            <td>Сумма</td>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="p in cartItems">
-            <td>{{p.title}}</td>
-            <td>{{p.price}}</td>
+        <tr ng-repeat="i in cartItems.items">
+            <td>{{i.productTitle}}</td>
             <td>
-                <button class="btn btn-danger" ng-click="deleteFromCart(p.id)">Удалить</button>
+                <div class="input-group quantity_goods">
+                    <input type="button" class="btn btn-secondary btn-sm" style="margin: 5px" value="-"
+                           onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                           ng-click="decrementFromCart(i.productId)">
+                    <input type="number" step="1" min="1" max="99" id="num_count" name="quantity" value={{i.quantity}}>
+                    <input type="button" class="btn btn-secondary btn-sm" style="margin: 5px" value="+" id="button_plus"
+                           onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                           ng-click="addProductToCart(i.productId)">
+                </div>
+            </td>
+            <td>{{i.pricePerProduct}}</td>
+            <td>{{i.price}}</td>
+            <td>
+                <button type="button" class="btn btn-outline-danger" ng-click="deleteFromCart(i.productId)">X</button>
             </td>
         </tr>
+
         </tbody>
     </table>
+    <div>
+        <h6 style="display: inline-block">Всего товаров на сумму: {{cartItems.totalPrice}}</h6>
+        <button class="btn btn-primary btn-sm" style="margin-left: 50px" ng-click="cartClear()">Очистить корзину</button>
+    </div>
+
 </div>
 </body>
 </html>
