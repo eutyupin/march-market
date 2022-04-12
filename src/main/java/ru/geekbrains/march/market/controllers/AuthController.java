@@ -13,12 +13,9 @@ import ru.geekbrains.march.market.converters.UserConverter;
 import ru.geekbrains.march.market.dtos.JwtRequest;
 import ru.geekbrains.march.market.dtos.JwtResponse;
 import ru.geekbrains.march.market.dtos.UserDto;
-import ru.geekbrains.march.market.entities.User;
 import ru.geekbrains.march.market.exceptions.AppError;
 import ru.geekbrains.march.market.services.UserService;
 import ru.geekbrains.march.market.utils.JwtTokenUtil;
-
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
