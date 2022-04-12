@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.converters.UserConverter;
@@ -40,9 +41,9 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @GetMapping("/get_my_email") //решил вернуть Dto по юзеру, на фронте уже брать из нее все нужное
-    public UserDto getUserEmail(@RequestBody JwtRequest authRequest) {
-       return userConverter.userConvertToDto(authRequest.getUsername());
+    @GetMapping("/get_my_email")
+    public UserDto getUserEmail() {
+        return userConverter.userConvertToDto(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
 }
