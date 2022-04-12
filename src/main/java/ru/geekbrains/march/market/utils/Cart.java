@@ -3,6 +3,7 @@ package ru.geekbrains.march.market.utils;
 import lombok.Data;
 import ru.geekbrains.march.market.entities.Product;
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.List;
 
 @Data
@@ -39,15 +40,25 @@ public class Cart {
     }
 
     public void decrement(Long productId) {
-        for (CartItem item : items) {
-            if(item.getProductId().equals(productId) && item.getQuantity() == 1){
-                delete(productId);
+        Iterator<CartItem> cartItemIterator = items.iterator();
+        while(cartItemIterator.hasNext()) {
+            CartItem item = cartItemIterator.next();
+            if (item.getProductId().equals(productId)) {
+                item.decrementQuantity();
+                if (item.getQuantity() <= 0) items.remove(item);
+                recalculate();
                 return;
             }
-            if(item.getProductId().equals(productId) && item.getQuantity() > 1){
-                item.decrementQuantity();
-            }
         }
-        recalculate();
+//        for (CartItem item : items) {
+//            if(item.getProductId().equals(productId) && item.getQuantity() == 1){
+//                delete(productId);
+//                return;
+//            }
+//            if(item.getProductId().equals(productId) && item.getQuantity() > 1){
+//                item.decrementQuantity();
+//            }
+//        }
+//        recalculate();
     }
 }
