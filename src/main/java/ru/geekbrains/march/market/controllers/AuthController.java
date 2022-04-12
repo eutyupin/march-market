@@ -41,7 +41,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @GetMapping("/get_my_email")
+    @GetMapping("/get_my_email")   //Вернул Dto... на фронте из нее можно взять все необходимое
     public UserDto getUserEmail() {
         return userConverter.userConvertToDto(SecurityContextHolder.getContext().getAuthentication().getName());
     }
