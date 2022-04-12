@@ -7,24 +7,24 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.march.market.converters.UserConverter;
 import ru.geekbrains.march.market.dtos.JwtRequest;
 import ru.geekbrains.march.market.dtos.JwtResponse;
+import ru.geekbrains.march.market.dtos.UserDto;
+import ru.geekbrains.march.market.entities.User;
 import ru.geekbrains.march.market.exceptions.AppError;
 import ru.geekbrains.march.market.services.UserService;
 import ru.geekbrains.march.market.utils.JwtTokenUtil;
 
-import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
     private final UserService userService;
+    private final UserConverter userConverter;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
@@ -38,6 +38,11 @@ public class AuthController {
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @GetMapping("/get_my_email") //решил вернуть Dto по юзеру, на фронте уже брать из нее все нужное
+    public UserDto getUserEmail(@RequestBody JwtRequest authRequest) {
+       return userConverter.userConvertToDto(authRequest.getUsername());
     }
 
 }
