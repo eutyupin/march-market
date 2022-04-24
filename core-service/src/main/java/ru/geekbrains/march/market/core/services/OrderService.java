@@ -1,6 +1,7 @@
 package ru.geekbrains.march.market.core.services;
 
 import lombok.RequiredArgsConstructor;
+import ru.geekbrains.march.market.api.CartDto;
 import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.api.ProductDto;
 import ru.geekbrains.march.market.core.converters.CartDtoToOrderConverter;
@@ -26,7 +27,10 @@ public class OrderService {
     }
 
     public void createNewOrder(String username) {
-        orderRepository.save(cartDtoToOrderConverter.CartDtoConvertToOrder(cartService.getCart(), username));
+        CartDto cartDto = cartService.getCart();
+        if (!cartDto.getItems().isEmpty()) {
+            orderRepository.save(cartDtoToOrderConverter.CartDtoConvertToOrder(cartDto, username));
+        }
     }
 
     public List<OrderDto> findAllOrders () {
