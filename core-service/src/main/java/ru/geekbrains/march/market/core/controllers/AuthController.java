@@ -9,7 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.march.market.core.converters.UserConverter;
+import ru.geekbrains.march.market.core.converters.UserToDtoConverter;
 import ru.geekbrains.march.market.api.JwtRequest;
 import ru.geekbrains.march.market.api.JwtResponse;
 import ru.geekbrains.march.market.api.UserDto;
@@ -22,7 +22,7 @@ import ru.geekbrains.march.market.core.utils.JwtTokenUtil;
 @RequestMapping("/auth")
 public class AuthController {
     private final UserService userService;
-    private final UserConverter userConverter;
+    private final UserToDtoConverter userToDtoConverter;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
@@ -40,7 +40,7 @@ public class AuthController {
 
     @GetMapping("/get_my_email")   //Вернул Dto... на фронте из нее можно взять все необходимое
     public UserDto getUserEmail() {
-        return userConverter.userConvertToDto(SecurityContextHolder.getContext().getAuthentication().getName());
+        return userToDtoConverter.userConvertToDtoByName(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
 }

@@ -5,7 +5,7 @@ import ru.geekbrains.march.market.api.ProductDto;
 import ru.geekbrains.march.market.core.entities.Product;
 
 @Component
-public class ProductConverter {
+public class ProductToDtoConverter {
     public ProductDto entityToDto(Product p) {
         ProductDto productDto = new ProductDto();
         productDto.setId(p.getId());

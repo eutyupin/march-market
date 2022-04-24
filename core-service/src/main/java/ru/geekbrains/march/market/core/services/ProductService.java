@@ -2,7 +2,8 @@ package ru.geekbrains.march.market.core.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.march.market.core.converters.ProductConverter;
+import ru.geekbrains.march.market.core.converters.DtoToProductConverter;
+import ru.geekbrains.march.market.core.converters.ProductToDtoConverter;
 import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.core.repositories.ProductRepository;
 import ru.geekbrains.march.market.api.ProductDto;
@@ -17,11 +18,12 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
-    private final ProductConverter productConverter;
+    private final ProductToDtoConverter productToDtoConverter;
+    private final DtoToProductConverter dtoToProductConverter;
 
     public List<ProductDto> findAll() { //возврат листа ProductDto вместо Product
         List<ProductDto> productDtoList = new ArrayList<>();
-        productRepository.findAll().forEach(p -> productDtoList.add(productConverter.entityToDto(p)));
+        productRepository.findAll().forEach(p -> productDtoList.add(productToDtoConverter.entityToDto(p)));
         return productDtoList;
     }
 
@@ -30,9 +32,7 @@ public class ProductService {
     }
 
     public void createNewProduct(ProductDto productDto) {
-        Product product = new Product();
-        product.setTitle(productDto.getTitle());
-        product.setPrice(productDto.getPrice());
+        Product product = dtoToProductConverter.productDtoConvertToProduct(productDto);
         product.setCategory(categoryService.findByTitle(productDto.getCategoryTitle()).orElseThrow(() -> new ResourceNotFoundException("Категория с названием: " + productDto.getCategoryTitle() + " не найдена")));
         productRepository.save(product);
     }

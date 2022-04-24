@@ -3,7 +3,7 @@ package ru.geekbrains.march.market.core.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.march.market.core.converters.ProductConverter;
+import ru.geekbrains.march.market.core.converters.ProductToDtoConverter;
 import ru.geekbrains.march.market.api.ProductDto;
 import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.core.services.ProductService;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-    private final ProductConverter productConverter;
+    private final ProductToDtoConverter productToDtoConverter;
 
     @GetMapping
     public List<ProductDto> getAllProducts() {
@@ -29,7 +29,7 @@ public class ProductController {
 //            return new ResponseEntity<>(productConverter.entityToDto(p.get()), HttpStatus.OK);
 //        }
 //        return new ResponseEntity<>(new AppError("RESOURCE_NOT_FOUND", "Продукт с id: " + id + " не найден"), HttpStatus.NOT_FOUND);
-        return productConverter.entityToDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт с id: " + id + " не найден")));
+        return productToDtoConverter.entityToDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт с id: " + id + " не найден")));
     }
 
     @PostMapping
