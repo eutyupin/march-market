@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.api.OrderDto;
-import ru.geekbrains.march.market.core.converters.OrderToDtoConverter;
 import ru.geekbrains.march.market.core.services.OrderService;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

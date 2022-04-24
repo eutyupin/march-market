@@ -3,8 +3,8 @@ package ru.geekbrains.march.market.core.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.march.market.core.converters.ProductToDtoConverter;
 import ru.geekbrains.march.market.api.ProductDto;
+import ru.geekbrains.march.market.core.converters.ProductToDtoConverter;
 import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.core.services.ProductService;
 
