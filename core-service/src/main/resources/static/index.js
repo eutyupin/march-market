@@ -104,8 +104,9 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
             });
     }
     $scope.createOrder = function () {
-        $http.post('http://localhost:8189/market/api/v1/orders', $scope.newProduct)
+        $http.post('http://localhost:8189/market/api/v1/orders')
             .then(function (response) {
+                $scope.cartClear();
             });
     }
 
