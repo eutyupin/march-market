@@ -1,6 +1,7 @@
 package ru.geekbrains.march.market.core.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.geekbrains.march.market.api.CartDto;
 import ru.geekbrains.march.market.api.OrderDto;
 import ru.geekbrains.march.market.api.ProductDto;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
