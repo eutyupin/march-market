@@ -61,3 +61,28 @@ insert into users_roles (user_id, role_id)
 values (1, 1),
        (2, 2),
        (3, 1);
+
+insert into users_roles (user_id, role_id)
+values (1, 1),
+       (2, 2);
+
+create table orders
+(
+    id              bigserial primary key,
+    user_id         bigint references users (id),
+    total_price     numeric(8, 2),
+    created_at      timestamp default current_timestamp,
+    updated_at      timestamp default current_timestamp
+);
+
+create table orders_items
+(
+    id                      bigserial primary key,
+    order_id                bigint references users (id),
+    product_id              bigint references products (id),
+    price_per_product       numeric(8, 2),
+    quantity                int,
+    price                   numeric(8, 2),
+    created_at              timestamp default current_timestamp,
+    updated_at              timestamp default current_timestamp
+);
