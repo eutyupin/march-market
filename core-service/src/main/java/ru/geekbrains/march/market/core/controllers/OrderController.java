@@ -4,6 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.api.OrderDto;
+import ru.geekbrains.march.market.api.ProductDto;
+import ru.geekbrains.march.market.core.converters.DtoToOrderConverter;
+import ru.geekbrains.march.market.core.converters.OrderToDtoConverter;
+import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
 import ru.geekbrains.march.market.core.services.OrderService;
 
 import java.security.Principal;
@@ -14,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
+    private final OrderToDtoConverter orderToDtoConverter;
 
     @GetMapping
     public List<OrderDto> getAllOrders() {
@@ -25,5 +30,10 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewOrder(@RequestBody OrderDto orderDto, Principal principal) {
         orderService.createNewOrder(orderDto);
+    }
+
+    @GetMapping("/{id}")
+    public OrderDto getProductById(@PathVariable Long id) {
+        return orderToDtoConverter.orderConvertToDto(orderService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Заказ с id: " + id + " не найден")));
     }
 }
