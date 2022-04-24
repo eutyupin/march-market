@@ -63,7 +63,6 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
     }
 
     $scope.createNewProduct = function () {
-        // console.log($scope.newProduct);
         $http.post('http://localhost:8189/market/api/v1/products', $scope.newProduct)
             .then(function (response) {
                 $scope.newProduct = null;
@@ -105,7 +104,9 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
             });
     }
     $scope.createOrder = function () {
-
+        $http.post('http://localhost:8189/market/api/v1/orders', $scope.newProduct)
+            .then(function (response) {
+            });
     }
 
     $scope.fillTable();

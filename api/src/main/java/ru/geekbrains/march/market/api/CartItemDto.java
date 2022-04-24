@@ -3,6 +3,7 @@ package ru.geekbrains.march.market.api;
 import java.math.BigDecimal;
 
 public class CartItemDto {
+    private Long id;
     private Long productId;
     private String productTitle;
     private int quantity;
@@ -47,5 +48,13 @@ public class CartItemDto {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
