@@ -60,11 +60,7 @@ values ('user','$2a$12$niT9crQOsMU45R8f62hw7uoo15Dzi464B5KxT5TaPNmf8R4qqVCcq','u
 insert into users_roles (user_id, role_id)
 values (1, 1),
        (2, 2),
-       (3, 1);
-
-insert into users_roles (user_id, role_id)
-values (1, 1),
-       (2, 2);
+       (3, 2);
 
 create table orders
 (

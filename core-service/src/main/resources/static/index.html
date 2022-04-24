@@ -67,12 +67,10 @@
             <td>{{p.price}}</td>
             <td>{{p.categoryTitle}}</td>
             <td>
-<!--                <button type="button" class="btn btn-outline-danger" ng-click="deleteProduct(p.id)">X</button>-->
                 <a class="btn btn-outline-danger" ng-click="deleteProduct(p.id)"><i class="far fa-trash-alt"></i></a>
             </td>
             <td>
                 <a class="btn btn-outline-primary" ng-click="addProductToCart(p.id)"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
-<!--                <button class="btn btn-primary" ng-click="addProductToCart(p.id)">Добавить в корзину</button>-->
             </td>
         </tr>
         </tbody>
@@ -124,7 +122,6 @@
             <td>{{i.price}}</td>
             <td>
                 <a class="btn btn-outline-danger" ng-click="deleteFromCart(i.productId)"><i class="far fa-trash-alt"></i></a>
-<!--                <button type="button" class="btn btn-outline-danger" ng-click="deleteFromCart(i.productId)">X</button>-->
             </td>
         </tr>
 
@@ -132,7 +129,8 @@
     </table>
     <div>
         <h6 style="display: inline-block">Всего товаров на сумму: {{cartItems.totalPrice}}</h6>
-        <button class="btn btn-primary btn-sm" style="margin-left: 50px" ng-click="cartClear()">Очистить корзину</button>
+        <a class="btn btn-danger btn-sm" style="margin-left: 50px" ng-click="cartClear()">Очистить корзину <i class="far fa-trash-alt" aria-hidden="true"></i></a>
+        <a class="btn btn-primary btn-sm" style="margin-left: 50px" ng-click="createOrder()">Оформить заказ <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
     </div>
 
 </div>

@@ -104,6 +104,9 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
                 $scope.fillCart();
             });
     }
+    $scope.createOrder = function () {
+
+    }
 
     $scope.fillTable();
     $scope.fillCart();
