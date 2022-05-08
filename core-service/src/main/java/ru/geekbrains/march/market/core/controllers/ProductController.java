@@ -24,11 +24,6 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable Long id) {
-//        Optional<Product> p = productService.findById(id);
-//        if (p.isPresent()) {
-//            return new ResponseEntity<>(productConverter.entityToDto(p.get()), HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(new AppError("RESOURCE_NOT_FOUND", "Продукт с id: " + id + " не найден"), HttpStatus.NOT_FOUND);
         return productToDtoConverter.entityToDto(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт с id: " + id + " не найден")));
     }
 
