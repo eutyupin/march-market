@@ -28,8 +28,8 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewOrder(Principal principal) {
-        orderService.createNewOrder(principal.getName());
+    public void createNewOrder(@RequestHeader String username) {
+        orderService.createNewOrder(username);
     }
 
     @GetMapping("/{id}")
