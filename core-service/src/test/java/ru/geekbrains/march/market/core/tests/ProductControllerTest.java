@@ -50,9 +50,21 @@ public class ProductControllerTest {
                         post("/api/v1/products")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(new ObjectMapper().writeValueAsString(productDto))
-                                .header("username", "Bob") // Здесь не особо нужно
+                                .header("username", "Bob")
                 )
                 .andDo(print())
                 .andExpect(status().isCreated());
+    }
+    @Test
+    public void getProductsByIdTest() throws Exception {
+        mvc
+                .perform(
+                        get("/api/v1/products/0")
+                                .contentType(MediaType.APPLICATION_JSON)
+
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is("Молоко")));
     }
 }
