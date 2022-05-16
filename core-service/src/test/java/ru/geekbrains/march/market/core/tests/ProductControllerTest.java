@@ -59,7 +59,7 @@ public class ProductControllerTest {
     public void getProductsByIdTest() throws Exception {
         mvc
                 .perform(
-                        get("/api/v1/products/0")
+                        get("/api/v1/products/1")
                                 .contentType(MediaType.APPLICATION_JSON)
 
                 )
