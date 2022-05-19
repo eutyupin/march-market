@@ -33,7 +33,7 @@ public class OrderService {
         if (!cartDto.getItems().isEmpty()) {
             orderRepository.save(cartDtoToOrderConverter.CartDtoConvertToOrder(cartDto, username));
             cartService.clearCart(username);
-        }
+        } else throw new IllegalStateException("Нельзя оформить заказ для пустой корзины");
     }
 
     public List<OrderDto> findAllOrders () {
