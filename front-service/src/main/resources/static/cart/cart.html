@@ -24,6 +24,15 @@
             </tr>
             </tbody>
         </table>
+
+        <div class="col-auto">
+            <input type="text" class="form-control" id="addressField" ng-model="deliveryInformation.address" placeholder="Адрес доставки">
+        </div>
+        <p></p>
+        <div class="col-auto">
+            <input type="text" class="form-control" id="phoneField" ng-model="deliveryInformation.phone" placeholder="Телефон">
+        </div>
+
         <p></p>
         <button class="btn btn-secondary" ng-click="guestCreateOrder()" ng-show="!isUserLoggedIn()">Оформить заказ</button>
         <button class="btn btn-primary" ng-click="createOrder()" ng-show="isUserLoggedIn()">Оформить заказ</button>

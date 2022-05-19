@@ -7,10 +7,14 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     };
 
     $scope.createOrder = function () {
-        $http.post('http://localhost:5555/core/api/v1/orders')
-            .then(function (response) {
-                $scope.loadCart();
-            });
+        if (!$scope.deliveryInformation.address.empty() && !$scope.deliveryInformation.phone.empty()) {
+            $http.post('http://localhost:5555/core/api/v1/orders')
+                .then(function (response) {
+                    $scope.loadCart();
+                });
+        } else {
+            alert('Заполните все поля');
+        }
     }
 
     $scope.guestCreateOrder = function () {
