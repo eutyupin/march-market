@@ -4,6 +4,7 @@ import lombok.Data;
 import ru.geekbrains.march.market.api.ProductDto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +13,10 @@ public class Cart {
     private List<CartItem> items;
     private BigDecimal totalPrice;
 
+    public  Cart() {
+        this.items = new ArrayList<>();
+        this.totalPrice = BigDecimal.ZERO;
+    }
     public void add(ProductDto p) {
         for (CartItem item : items) {
             if (item.getProductId().equals(p.getId())) {

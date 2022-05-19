@@ -11,11 +11,11 @@ import ru.geekbrains.march.market.api.ProductDto;
 @RequiredArgsConstructor
 public class CartServiceIntegration {
     private final WebClient cartServiceWebClient;
-    private final String CART_PRODUCTS_URI = "/api/v1/cart/";
 
-    public CartDto getCart() {
+    public CartDto getCart(String username) {
         return cartServiceWebClient.get()
-                .uri(CART_PRODUCTS_URI)
+                .uri("/api/v1/cart/0")
+                .header(username)
                 .retrieve()
                 .bodyToMono(CartDto.class)
                 .block();
@@ -23,7 +23,7 @@ public class CartServiceIntegration {
 
     public void clearCart(String username) {
         cartServiceWebClient.post()
-                .uri(CART_PRODUCTS_URI + "clear")
+                .uri("/api/v1/cart/0/clear")
                 .header(username)
                 .retrieve()
                 .toBodilessEntity()

@@ -29,11 +29,12 @@ public class OrderService {
     }
 
     public void createNewOrder(String username) {
-        CartDto cartDto = cartService.getCart();
+        CartDto cartDto = cartService.getCart(username);
         if (!cartDto.getItems().isEmpty()) {
             orderRepository.save(cartDtoToOrderConverter.CartDtoConvertToOrder(cartDto, username));
             cartService.clearCart(username);
-        } else throw new IllegalStateException("Нельзя оформить заказ для пустой корзины");
+        }
+//        else throw new IllegalStateException("Нельзя оформить заказ для пустой корзины");
     }
 
     public List<OrderDto> findAllOrders () {

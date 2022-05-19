@@ -24,13 +24,13 @@ public class CartServiceTest {
     @MockBean
     Cart cart;
 
-    @Test
-    public void addToCartTest() {
-        ProductDto productDto = new ProductDto(1L, "some product", BigDecimal.valueOf(258.00),"some category");
-        Mockito.doReturn(productDto)
-                .when(productServiceIntegration)
-                .findById(1L);
-        cartService.addToCart(1L);
-    }
+//    @Test
+//    public void addToCartTest() {
+//        ProductDto productDto = new ProductDto(1L, "some product", BigDecimal.valueOf(258.00),"some category");
+//        Mockito.doReturn(productDto)
+//                .when(productServiceIntegration)
+//                .findById(1L);
+//        cartService.addToCart(1L);
+//    }
 
 }
