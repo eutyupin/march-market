@@ -32,7 +32,7 @@ public class CartController {
     }
 
     @PostMapping("/clear")
-    public void clearCart() {
-        cartService.cartClear();
+    public void clearCart(@RequestHeader String username) {
+        cartService.cartClear(username);
     }
 }

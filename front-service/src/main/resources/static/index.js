@@ -14,7 +14,15 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
 
         if ($localStorage.marchMarketUser) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.marchMarketUser.token;
+            $scope.fillOrders();
         }
+    }
+
+    $scope.fillOrders = function () {
+        $http.get('http://localhost:5555/core/api/v1/orders')
+            .then(function (response) {
+                $.scope.orders = response.data;
+            });
     }
 
     $scope.fillTable = function () {
@@ -33,6 +41,7 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
                     $localStorage.marchMarketUser = {username: $scope.user.username, token: response.data.token};
                     $scope.user.username = null;
                     $scope.user.password = null;
+                    $scope.fillOrders();
                 }
             }, function errorCallback(response) {
             });
@@ -56,7 +65,7 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
     };
 
     $scope.deleteProduct = function (id) {
-        $http.delete('http://localhost:5555/core/api/v1/products/' + id)
+        $http.delete('http://localhost:5555/core/api/v1/products' + id)
             .then(function (response) {
                 $scope.fillTable();
             });
@@ -106,10 +115,13 @@ angular.module('market', ['ngStorage']).controller('indexController', function (
     $scope.createOrder = function () {
         $http.post('http://localhost:5555/core/api/v1/orders')
             .then(function (response) {
-                $scope.cartClear();
+                $scope.fillCart();
             });
     }
 
     $scope.fillTable();
     $scope.fillCart();
+    if($scope.isUserLoggedIn()) {
+        $scope.fillOrders();
+    }
 });

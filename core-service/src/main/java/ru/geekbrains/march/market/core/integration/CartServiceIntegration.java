@@ -21,5 +21,14 @@ public class CartServiceIntegration {
                 .block();
     }
 
+    public void clearCart(String username) {
+        cartServiceWebClient.post()
+                .uri(CART_PRODUCTS_URI + "clear")
+                .header(username)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
+
 
 }

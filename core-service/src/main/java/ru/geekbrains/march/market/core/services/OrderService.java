@@ -32,6 +32,7 @@ public class OrderService {
         CartDto cartDto = cartService.getCart();
         if (!cartDto.getItems().isEmpty()) {
             orderRepository.save(cartDtoToOrderConverter.CartDtoConvertToOrder(cartDto, username));
+            cartService.clearCart(username);
         }
     }
 

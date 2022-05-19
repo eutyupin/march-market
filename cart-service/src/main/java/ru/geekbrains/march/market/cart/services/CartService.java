@@ -42,7 +42,7 @@ public class CartService {
         cart.decrement(productId);
     }
 
-    public void cartClear() {
+    public void cartClear(String username) {
         cart.clear();
     }
 }

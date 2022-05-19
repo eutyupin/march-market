@@ -133,6 +133,31 @@
         <a class="btn btn-primary btn-sm" style="margin-left: 50px" ng-click="createOrder()">Оформить заказ <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
     </div>
 
+    <div>
+        <h3>Заказы</h3>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <td>Номер заказа</td>
+                <td>Стоимость</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="o in orders">
+                <td>{{o.id}}</td>
+                <td>{{o.totalPrice}}</td>
+<!--                <td>-->
+<!--                    <a class="btn btn-outline-danger" ng-click="deleteFromCart(i.productId)"><i class="far fa-trash-alt"></i></a>-->
+<!--                </td>-->
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
 </div>
+
+
 </body>
 </html>
