@@ -8,9 +8,8 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     };
 
     $scope.createOrder = function () {
-
         if ($scope.deliveryInformation.address !== '' && $scope.deliveryInformation.phone !== '') {
-            $http.post('http://localhost:5555/core/api/v1/orders')
+            $http.post('http://localhost:5555/core/api/v1/orders', $scope.deliveryInformation)
                 .then(function (response) {
                     $scope.loadCart();
                 });
