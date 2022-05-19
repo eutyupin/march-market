@@ -14,6 +14,8 @@ public class DtoToUserConverter {
         user.setId(userDto.getId());
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
+        user.setAddress(userDto.getAddress());
+        user.setPhone(userDto.getPhone());
         return user;
     }
 }
