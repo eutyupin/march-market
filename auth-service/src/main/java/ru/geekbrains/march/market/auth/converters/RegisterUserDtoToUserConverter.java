@@ -1,10 +1,8 @@
 package ru.geekbrains.march.market.auth.converters;
 
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.march.market.api.RegisterUserDto;
-import ru.geekbrains.march.market.api.UserDto;
 import ru.geekbrains.march.market.auth.entities.User;
 
 @Component
