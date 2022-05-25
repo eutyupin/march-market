@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.march.market.api.JwtRequest;
 import ru.geekbrains.march.market.api.JwtResponse;
 import ru.geekbrains.march.market.api.RegisterUserDto;
+import ru.geekbrains.march.market.auth.converters.RegisterUserDtoToUserConverter;
 import ru.geekbrains.march.market.auth.exceptions.AppError;
 import ru.geekbrains.march.market.auth.services.UserService;
 import ru.geekbrains.march.market.auth.utils.JwtTokenUtil;
@@ -23,11 +24,13 @@ import ru.geekbrains.march.market.auth.utils.JwtTokenUtil;
 public class RegisterController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final RegisterUserDtoToUserConverter registerUserDtoToUserConverter;
 
     @PostMapping("/register")
-    public void registrateNewUser(@RequestBody RegisterUserDto registerUserDto) {
-        // TODO полностью реализовать метод, как считаете нужным
-        //  ниже всего лишь пример хеширования паролей
+    public void registerNewUser(@RequestBody RegisterUserDto registerUserDto) {
         String bcryptCachedPassword = passwordEncoder.encode(registerUserDto.getPassword());
+        registerUserDto.setPassword(bcryptCachedPassword);
+        registerUserDto.setConfirmPassword(bcryptCachedPassword);
+        userService.createNewUser(registerUserDtoToUserConverter.registerUserDtoConvertToUser(registerUserDto));
     }
 }

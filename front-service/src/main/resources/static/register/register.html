@@ -1,0 +1,48 @@
+<div>
+    <p></p>
+    <h3>Регистрация</h3>
+    <p></p>
+    <label>
+        * Введите имя пользователя
+    </label>
+    <p></p>
+    <input id="navLoginField" class="form-control" ng-model="newUser.username" type="text"
+           aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+    <p></p>
+    <label>
+    Введите адрес электронной почты
+    </label>
+    <p></p>
+    <input id="navEmailField" class="form-control" ng-model="newUser.email" type="text"
+           aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+    <p></p>
+    <label>
+        Введите номер телефона
+    </label>
+    <p></p>
+    <input id="navPhoneField" class="form-control" ng-model="newUser.phone" type="text"
+           aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+    <p></p>
+    <label>
+        Введите адрес доставки
+    </label>
+    <p></p>
+    <input id="navAddressField" class="form-control" ng-model="newUser.address" type="text"
+           aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+    <p></p>
+    <label>
+    * Введите пароль
+    </label>
+    <p></p>
+    <input id="navPasswordField" class="form-control" ng-model="newUser.password" type="password"
+           aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+    <p></p>
+    <label>
+    * Введите пароль еще раз
+    </label>
+    <p></p>
+    <input id="navRetypePasswordField" class="form-control" ng-model="newUser.confirmPassword" type="password"
+           aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+    <p></p>
+    <button class="btn btn-primary" ng-click="registerNewUser()">Создать нового пользователя</button>
+</div>
