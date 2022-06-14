@@ -3,6 +3,7 @@ package ru.geekbrains.march.market.core.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.march.market.core.converters.DtoToProductConverter;
 import ru.geekbrains.march.market.core.converters.ProductToDtoConverter;
@@ -23,8 +24,8 @@ public class ProductService {
     private final ProductToDtoConverter productToDtoConverter;
     private final DtoToProductConverter dtoToProductConverter;
 
-    public Page<ProductDto> findAll(int page, int pageSize) {
-        return productRepository.findAll(PageRequest.of(page, pageSize)).map(productToDtoConverter::entityToDto);
+    public Page<ProductDto> findAll(Specification<Product> specification, int page, int pageSize) {
+        return productRepository.findAll(specification, PageRequest.of(page, pageSize)).map(productToDtoConverter::entityToDto);
     }
 
     public void deleteById(Long id) {
