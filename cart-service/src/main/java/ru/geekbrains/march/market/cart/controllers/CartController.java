@@ -19,7 +19,7 @@ public class CartController {
     }
     @GetMapping("/{guestCartId}")
     public CartDto getCurrentCart(@RequestHeader (required = false) String username, @PathVariable String guestCartId) {
-        return cartService.getCurrentCart(selectCartId(username, guestCartId));
+        return cartService.getCurrentCartDto(selectCartId(username, guestCartId));
     }
 
     @GetMapping("/{guestCartId}/add/{productId}")

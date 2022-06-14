@@ -1,6 +1,7 @@
 package ru.geekbrains.march.market.core.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.api.ProductDto;
@@ -18,8 +19,10 @@ public class ProductController {
     private final ProductToDtoConverter productToDtoConverter;
 
     @GetMapping
-    public List<ProductDto> getAllProducts() {
-        return productService.findAll();
+    public Page<ProductDto> getAllProducts(@RequestParam (name = "page", defaultValue = "1") Integer page,
+                                           @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize){
+        if (page < 1) page = 1;
+        return productService.findAll(page - 1, pageSize);
     }
 
     @GetMapping("/{id}")
