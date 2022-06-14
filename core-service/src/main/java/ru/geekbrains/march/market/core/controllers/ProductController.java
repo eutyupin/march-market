@@ -1,11 +1,12 @@
 package ru.geekbrains.march.market.core.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.march.market.api.PageDto;
 import ru.geekbrains.march.market.api.ProductDto;
+import ru.geekbrains.march.market.core.converters.PageToDtoConverter;
 import ru.geekbrains.march.market.core.converters.ProductToDtoConverter;
 import ru.geekbrains.march.market.core.entities.Product;
 import ru.geekbrains.march.market.core.exceptions.ResourceNotFoundException;
@@ -13,7 +14,6 @@ import ru.geekbrains.march.market.core.repositories.specifications.ProductsSpeci
 import ru.geekbrains.march.market.core.services.ProductService;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -21,13 +21,14 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
     private final ProductToDtoConverter productToDtoConverter;
+    private final PageToDtoConverter pageToDtoConverter;
 
     @GetMapping
-    public Page<ProductDto> getAllProducts(@RequestParam (name = "page", defaultValue = "1") Integer page,
-                                           @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
-                                           @RequestParam(name = "title_part", required = false) String titlePart,
-                                           @RequestParam(name = "min_price", required = false) Integer minPrice,
-                                           @RequestParam(name = "max_price", required = false) Integer maxPrice) {
+    public PageDto getAllProducts(@RequestParam (name = "page", defaultValue = "1") Integer page,
+                                              @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                              @RequestParam(name = "title_part", required = false) String titlePart,
+                                              @RequestParam(name = "min_price", required = false) Integer minPrice,
+                                              @RequestParam(name = "max_price", required = false) Integer maxPrice) {
         if (page < 1) page = 1;
         Specification<Product> specification = Specification.where(null);
         if (titlePart != null) {
@@ -41,7 +42,7 @@ public class ProductController {
             specification = specification.and(ProductsSpecifications.priceLessThanOrEqualsThan(BigDecimal.valueOf(maxPrice)));
         }
 
-        return productService.findAll(specification, page - 1, pageSize);
+        return pageToDtoConverter.pageConvertToDto(productService.findAll(specification, page - 1, pageSize));
     }
 
     @GetMapping("/{id}")
