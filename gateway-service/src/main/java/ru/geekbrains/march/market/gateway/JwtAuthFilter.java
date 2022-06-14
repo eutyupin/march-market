@@ -16,6 +16,9 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
     @Autowired
     private JwtUtil jwtUtil;
 
+
+    // по поводу безопасности полагаю вот эта статья https://blog.knoldus.com/spring-cloud-gateway-with-jwt/
+
     public JwtAuthFilter() {
         super(Config.class);
     }
