@@ -1,5 +1,8 @@
 package ru.geekbrains.march.market.auth.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +22,21 @@ import ru.geekbrains.march.market.auth.utils.JwtTokenUtil;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Аутентификация", description = "Методы создания токена и аутентификации")
 public class AuthController {
     private final UserService userService;
     private final UserToDtoConverter userToDtoConverter;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
+    @Operation(
+            summary = "Создание токена",
+            responses = {
+                    @ApiResponse(
+                            description = "Токен успешно создан", responseCode = "201"
+                    )
+            }
+    )
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthToken(@RequestBody JwtRequest authRequest) {
         try {

@@ -1,5 +1,8 @@
 package ru.geekbrains.march.market.auth.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +24,20 @@ import ru.geekbrains.march.market.auth.utils.JwtTokenUtil;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Регистрация", description = "Методы регистрации нового пользователя")
 public class RegisterController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final RegisterUserDtoToUserConverter registerUserDtoToUserConverter;
 
+    @Operation(
+            summary = "Регистрация пользователя",
+            responses = {
+                    @ApiResponse(
+                            description = "Пользователь успешно создан", responseCode = "201"
+                    )
+            }
+    )
     @PostMapping("/register")
     public void registerNewUser(@RequestBody RegisterUserDto registerUserDto) {
         String bcryptCachedPassword = passwordEncoder.encode(registerUserDto.getPassword());

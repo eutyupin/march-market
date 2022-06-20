@@ -1,10 +1,18 @@
 package ru.geekbrains.march.market.api;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Модель пользователя")
 public class UserDto {
+    @Schema(description = "ID пользователя", required = true, example = "1")
     private Long id;
+    @Schema(description = "Имя пользователя", required = true, example = "Bob")
     private String username;
+    @Schema(description = "e-mail пользователя", required = true, example = "Bob@mail.ru")
     private String email;
+    @Schema(description = "Номер телефона пользователя", required = true, example = "+79235152552")
     private String phone;
+    @Schema(description = "Адрес пользователя", required = true, example = "г. Москва 3-я улица Строителей 25 квартира 12")
     private String address;
 
     public UserDto() {
