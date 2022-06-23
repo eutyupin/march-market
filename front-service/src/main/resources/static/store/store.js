@@ -18,7 +18,7 @@ angular.module('market').controller('storeController', function ($scope, $http, 
     $scope.addToCart = function (id) {
         $http({
             url: 'http://localhost:5555/cart/api/v1/cart/' + $localStorage.marchMarketGuestCartId + '/add/' + id,
-            method: 'GET'
+            method: 'POST'
             }).then(function (response) {
             });
     }

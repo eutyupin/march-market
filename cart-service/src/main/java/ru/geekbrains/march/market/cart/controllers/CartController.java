@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.api.CartDto;
+import ru.geekbrains.march.market.api.GuestDto;
 import ru.geekbrains.march.market.api.ProductDto;
 import ru.geekbrains.march.market.cart.services.CartService;
 
@@ -31,8 +32,8 @@ public class CartController {
             }
     )
     @GetMapping("/generate_id")
-    public String generateGuestCartId() {
-        return UUID.randomUUID().toString();
+    public GuestDto generateGuestCartId() {
+        return new GuestDto();
     }
 
     @Operation(
@@ -57,7 +58,7 @@ public class CartController {
                     )
             }
     )
-    @GetMapping("/{guestCartId}/add/{productId}")
+    @PostMapping("/{guestCartId}/add/{productId}")
     public void addProductToCart(@RequestHeader (required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
         cartService.addToCart(selectCartId(username, guestCartId), productId);
     }
@@ -83,7 +84,7 @@ public class CartController {
                     )
             }
     )
-    @DeleteMapping("/{guestCartId}/decrement/{productId}")
+    @PostMapping("/{guestCartId}/decrement/{productId}")
     public void decrementFromCart(@PathVariable Long productId, @RequestHeader (required = false) String username, @PathVariable String guestCartId) {
         cartService.decrementFromCart(selectCartId(username, guestCartId), productId);
     }
@@ -96,10 +97,9 @@ public class CartController {
                     )
             }
     )
-    @PostMapping("/{guestCartId}/clear")
+    @DeleteMapping("/{guestCartId}/clear")
     public void clearCart(@RequestHeader (required = false) String username, @PathVariable String guestCartId) {
         cartService.clearCart(selectCartId(username, guestCartId));
-        System.out.println("CLEARED");
     }
 
     @Operation(

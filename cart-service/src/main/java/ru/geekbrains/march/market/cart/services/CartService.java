@@ -46,7 +46,7 @@ public class CartService {
     }
 
     public void clearCart(String cartId) {
-        executeEvent(cartId, Cart::clear);
+        executeEvent(cartId, cart -> cart.clear());
     }
 
     private void executeEvent(String cartId, Consumer<Cart> action) {
