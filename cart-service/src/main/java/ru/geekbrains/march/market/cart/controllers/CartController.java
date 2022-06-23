@@ -12,6 +12,7 @@ import ru.geekbrains.march.market.api.ProductDto;
 import ru.geekbrains.march.market.cart.services.CartService;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -61,15 +62,31 @@ public class CartController {
         cartService.addToCart(selectCartId(username, guestCartId), productId);
     }
 
-//    @DeleteMapping("/{guestCartId}/delete/{productId}")
-//    public void deleteFromCart(@PathVariable Long productId) {
-//        cartService.deleteFromCart(productId);
-//    }
-//
-//    @DeleteMapping("/{guestCartId}/decrement/{productId}")
-//    public void decrementFromCart(@PathVariable Long productId) {
-//        cartService.decrementFromCart(productId);
-//    }
+    @Operation(
+            summary = "Запрос на удаление товара из корзины",
+            responses = {
+                    @ApiResponse(
+                            description = "Товар удалён", responseCode = "201"
+                    )
+            }
+    )
+    @DeleteMapping("/{guestCartId}/remove/{productId}")
+    public void removeFromCart(@PathVariable Long productId, @RequestHeader (required = false) String username, @PathVariable String guestCartId) {
+        cartService.removeFromCart(selectCartId(username, guestCartId), productId);
+    }
+
+    @Operation(
+            summary = "Запрос на уменьшение количества товара в корзине",
+            responses = {
+                    @ApiResponse(
+                            description = "Количество товара уменьшено", responseCode = "201"
+                    )
+            }
+    )
+    @DeleteMapping("/{guestCartId}/decrement/{productId}")
+    public void decrementFromCart(@PathVariable Long productId, @RequestHeader (required = false) String username, @PathVariable String guestCartId) {
+        cartService.decrementFromCart(selectCartId(username, guestCartId), productId);
+    }
 
     @Operation(
             summary = "Запрос на очистку корзины",
@@ -81,7 +98,8 @@ public class CartController {
     )
     @PostMapping("/{guestCartId}/clear")
     public void clearCart(@RequestHeader (required = false) String username, @PathVariable String guestCartId) {
-        cartService.cartClear(selectCartId(username, guestCartId));
+        cartService.clearCart(selectCartId(username, guestCartId));
+        System.out.println("CLEARED");
     }
 
     @Operation(

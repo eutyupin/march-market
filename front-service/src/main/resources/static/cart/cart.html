@@ -14,8 +14,21 @@
             <tbody>
             <tr ng-repeat="ci in cart.items">
                 <td>{{ci.productTitle}}</td>
-                <td>{{ci.quantity}}</td>
-                <td>{{ci.pricePerProduct + ' x ' + ci.quantity + ' = ' + ci.price}}</td>
+                <td>
+                    <div class="input-group quantity_goods">
+                        <input type="button" class="btn btn-secondary btn-sm" style="margin: 5px" value="-"
+                               onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                               ng-click="decrementFromCart(ci.productId)">
+                        <input type="number" step="1" min="1" max="99" id="num_count" name="quantity" value={{ci.quantity}}>
+                        <input type="button" class="btn btn-secondary btn-sm" style="margin: 5px" value="+" id="button_plus"
+                               onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                               ng-click="incrementProductToCart(ci.productId)">
+                    </div>
+                </td>
+                <td>{{ci.price}}</td>
+                <td>
+                    <a class="btn btn-outline-danger" ng-click="removeFromCart(ci.productId)">Удалить</i></a>
+                </td>
             </tr>
             <tr>
                 <td></td>
@@ -33,6 +46,8 @@
             <input type="text" class="form-control" id="phoneField" ng-model="deliveryInformation.phone" placeholder="Телефон">
         </div>
 
+        <p></p>
+        <a class="btn btn-danger btn-sm" ng-click="clearCart()">Очистить корзину <i class="far fa-trash-alt" aria-hidden="true"></i></a>
         <p></p>
         <button class="btn btn-secondary" ng-click="guestCreateOrder()" ng-show="!isUserLoggedIn()">Оформить заказ</button>
         <button class="btn btn-primary" ng-click="createOrder()" ng-show="isUserLoggedIn()">Оформить заказ</button>

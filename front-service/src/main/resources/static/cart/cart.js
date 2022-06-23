@@ -20,5 +20,32 @@ angular.module('market').controller('cartController', function ($scope, $http, $
         alert('Для оформления заказа необходимо войти в учетную запись');
     }
 
+    $scope.removeFromCart = function (id) {
+        $http.delete('http://localhost:5555/cart/api/v1/cart/' + $localStorage.marchMarketGuestCartId + '/remove/' + id)
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.incrementProductToCart = function (id) {
+        $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.marchMarketGuestCartId + '/add/' + id)
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.decrementFromCart = function (id) {
+        $http.delete('http://localhost:5555/cart/api/v1/cart/' + $localStorage.marchMarketGuestCartId + '/decrement/' + id)
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
+
+    $scope.clearCart = function () {
+        $http.post('http://localhost:555/cart/api/v1/cart/' + $localStorage.marchMarketGuestCartId + '/clear')
+            .then(function (response) {
+                $scope.loadCart();
+            });
+    }
     $scope.loadCart();
 });
