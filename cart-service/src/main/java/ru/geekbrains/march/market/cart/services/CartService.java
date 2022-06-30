@@ -40,13 +40,13 @@ public class CartService {
     public void removeFromCart(String cartId, Long productId) {
         executeEvent(cartId, cart -> cart.remove(productId));
     }
-//
-//    public void decrementFromCart(Long productId) {
-//        cart.decrement(productId);
-//    }
 
-    public void cartClear(String cartId) {
-        executeEvent(cartId, Cart::clear);
+    public void decrementFromCart(String cartId, Long productId) {
+        executeEvent(cartId, cart -> cart.decrement(productId));
+    }
+
+    public void clearCart(String cartId) {
+        executeEvent(cartId, cart -> cart.clear());
     }
 
     private void executeEvent(String cartId, Consumer<Cart> action) {

@@ -8,10 +8,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.march.market.api.CartDto;
+import ru.geekbrains.march.market.api.GuestDto;
 import ru.geekbrains.march.market.api.ProductDto;
 import ru.geekbrains.march.market.cart.services.CartService;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/v1/cart")
@@ -30,8 +32,8 @@ public class CartController {
             }
     )
     @GetMapping("/generate_id")
-    public String generateGuestCartId() {
-        return UUID.randomUUID().toString();
+    public GuestDto generateGuestCartId() {
+        return new GuestDto();
     }
 
     @Operation(
@@ -56,20 +58,36 @@ public class CartController {
                     )
             }
     )
-    @GetMapping("/{guestCartId}/add/{productId}")
+    @PostMapping("/{guestCartId}/add/{productId}")
     public void addProductToCart(@RequestHeader (required = false) String username, @PathVariable String guestCartId, @PathVariable Long productId) {
         cartService.addToCart(selectCartId(username, guestCartId), productId);
     }
 
-//    @DeleteMapping("/{guestCartId}/delete/{productId}")
-//    public void deleteFromCart(@PathVariable Long productId) {
-//        cartService.deleteFromCart(productId);
-//    }
-//
-//    @DeleteMapping("/{guestCartId}/decrement/{productId}")
-//    public void decrementFromCart(@PathVariable Long productId) {
-//        cartService.decrementFromCart(productId);
-//    }
+    @Operation(
+            summary = "Запрос на удаление товара из корзины",
+            responses = {
+                    @ApiResponse(
+                            description = "Товар удалён", responseCode = "201"
+                    )
+            }
+    )
+    @DeleteMapping("/{guestCartId}/remove/{productId}")
+    public void removeFromCart(@PathVariable Long productId, @RequestHeader (required = false) String username, @PathVariable String guestCartId) {
+        cartService.removeFromCart(selectCartId(username, guestCartId), productId);
+    }
+
+    @Operation(
+            summary = "Запрос на уменьшение количества товара в корзине",
+            responses = {
+                    @ApiResponse(
+                            description = "Количество товара уменьшено", responseCode = "201"
+                    )
+            }
+    )
+    @PostMapping("/{guestCartId}/decrement/{productId}")
+    public void decrementFromCart(@PathVariable Long productId, @RequestHeader (required = false) String username, @PathVariable String guestCartId) {
+        cartService.decrementFromCart(selectCartId(username, guestCartId), productId);
+    }
 
     @Operation(
             summary = "Запрос на очистку корзины",
@@ -79,9 +97,9 @@ public class CartController {
                     )
             }
     )
-    @PostMapping("/{guestCartId}/clear")
+    @DeleteMapping("/{guestCartId}/clear")
     public void clearCart(@RequestHeader (required = false) String username, @PathVariable String guestCartId) {
-        cartService.cartClear(selectCartId(username, guestCartId));
+        cartService.clearCart(selectCartId(username, guestCartId));
     }
 
     @Operation(

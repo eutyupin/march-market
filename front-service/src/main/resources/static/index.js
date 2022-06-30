@@ -38,19 +38,19 @@
                     delete $localStorage.marchMarketUser;
                     $http.defaults.headers.common.Authorization = '';
                 }
-            } catch (e) {
-            }
+            } catch (e) {}
+        }
 
-            if ($localStorage.marchMarketUser) {
+        if ($localStorage.marchMarketUser) {
                 $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.marchMarketUser.token;
-            }
+        }
 
-            if (!$localStorage.marchMarketGuestCartId) {
-                $http.get('http://localhost:5555/cart/api/v1/cart/generate_id')
-                    .then(function (response) {
-                        $localStorage.marchMarketGuestCartId = response.data.value;
-                    });
-            }
+        if (!$localStorage.marchMarketGuestCartId) {
+            $http.get('http://localhost:5555/cart/api/v1/cart/generate_id')
+                .then(function (response) {
+                    $localStorage.marchMarketGuestCartId = response.data.cartId;
+                    console.log($localStorage.marchMarketGuestCartId)
+                });
         }
     }
 })();

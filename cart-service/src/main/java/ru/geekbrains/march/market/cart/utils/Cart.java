@@ -44,11 +44,6 @@ public class Cart {
         items.forEach(i -> totalPrice = totalPrice.add(i.getPrice()));
     }
 
-    public void delete(Long productId) {
-        items.removeIf(item -> item.getProductId().equals(productId));
-        recalculate();
-    }
-
     public void decrement(Long productId) {
         Iterator<CartItem> cartItemIterator = items.iterator();
         while(cartItemIterator.hasNext()) {
@@ -60,15 +55,5 @@ public class Cart {
                 return;
             }
         }
-//        for (CartItem item : items) {
-//            if(item.getProductId().equals(productId) && item.getQuantity() == 1){
-//                delete(productId);
-//                return;
-//            }
-//            if(item.getProductId().equals(productId) && item.getQuantity() > 1){
-//                item.decrementQuantity();
-//            }
-//        }
-//        recalculate();
     }
 }
